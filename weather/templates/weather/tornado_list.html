@@ -1,0 +1,25 @@
+{% load static %}
+<h2>Tornado Weather Analysis</h2>
+
+<form method="get">
+    <label>Filter by EF Rating:</label>
+    <select name="ef" onchange="this.form.submit()">
+        <option value="">All</option>
+        <option value="EF0">EF0</option>
+        <option value="EF1">EF1</option>
+        <option value="EF2">EF2</option>
+        <option value="EF3">EF3</option>
+        <option value="EF4">EF4</option>
+        <option value="EF5">EF5</option>
+    </select>
+</form>
+
+{% for tornado in tornadoes %}
+    <div style="margin-bottom: 40px;">
+        <h3>{{ tornado.name }} — {{ tornado.ef_rating }} ({{ tornado.date }})</h3>
+        <p>{{ tornado.location }}</p>
+        <img src="{% static tornado.plot_image %}" style="max-width: 100%;">
+    </div>
+{% empty %}
+    <p>No tornadoes found.</p>
+{% endfor %}
